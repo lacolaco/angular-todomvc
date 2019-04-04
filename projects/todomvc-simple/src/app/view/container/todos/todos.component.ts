@@ -40,7 +40,7 @@ export class TodosComponent {
   }
 
   editTodo(index: number, todo: Todo) {
-    this.todosUsecase.editTodo(index);
+    this.todosUsecase.startEditing(index);
     this.editTodoControls.insert(
       index,
       this.fb.control(todo.title, {
@@ -58,7 +58,7 @@ export class TodosComponent {
     if (control.invalid) {
       return;
     }
-    this.todosUsecase.stopEditing(index, control.value);
+    this.todosUsecase.finishEditing(index, control.value);
   }
 
   cancelEditingTodo(index: number) {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { produce } from 'immer';
 import { createTodo } from '../domain/todo';
+import * as TodoActions from '../store/todo.actions';
 import { TodoStore } from '../store/todo.store';
 
 @Injectable({ providedIn: 'root' })
@@ -9,66 +9,30 @@ export class TodosUsecase {
 
   addTodo(title: string) {
     const todo = createTodo({ title });
-
-    this.todoStore.update(
-      produce(draft => {
-        draft.todos.items.push(todo);
-      }),
-    );
+    this.todoStore.update(TodoActions.add(todo));
   }
 
   toggleCompletion(index: number) {
-    this.todoStore.update(
-      produce(draft => {
-        const todo = draft.todos.items[index];
-        todo.completed = !todo.completed;
-      }),
-    );
+    this.todoStore.update(TodoActions.toddleCompletion(index));
   }
 
-  editTodo(index: number) {
-    this.todoStore.update(
-      produce(draft => {
-        const todo = draft.todos.items[index];
-        todo.editing = true;
-      }),
-    );
+  startEditing(index: number) {
+    this.todoStore.update(TodoActions.startEditing(index));
   }
 
   removeTodo(index: number) {
-    this.todoStore.update(
-      produce(draft => {
-        draft.todos.items = draft.todos.items.filter((_, i) => i !== index);
-      }),
-    );
+    this.todoStore.update(TodoActions.remove(index));
   }
 
-  stopEditing(index: number, newTitle: string) {
-    this.todoStore.update(
-      produce(draft => {
-        const todo = draft.todos.items[index];
-        todo.title = newTitle;
-        todo.editing = false;
-      }),
-    );
+  finishEditing(index: number, newTitle: string) {
+    this.todoStore.update(TodoActions.finishEditing(index, newTitle));
   }
 
   cancelEditing(index: number) {
-    this.todoStore.update(
-      produce(draft => {
-        const todo = draft.todos.items[index];
-        todo.editing = false;
-      }),
-    );
+    this.todoStore.update(TodoActions.cancelEditing(index));
   }
 
   removeCompleted() {
-    this.todoStore.update(
-      produce(draft => {
-        draft.todos.items = draft.todos.items.filter(
-          todo => todo.completed === false,
-        );
-      }),
-    );
+    this.todoStore.update(TodoActions.removeCompleted());
   }
 }
