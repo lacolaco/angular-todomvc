@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TodoStore } from '../../../store/todo.store';
+import { TodoStore } from '../store/todo.store';
 
 @Injectable({ providedIn: 'root' })
 export class TodosQuery {

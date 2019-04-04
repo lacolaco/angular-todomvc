@@ -9,7 +9,7 @@
       (keyup.enter)="addTodo()"
     />
   </header>
-  <ng-container *ngIf="(todos$ | async) as todos">
+  <ng-container *ngIf="(query.todos$ | async) as todos">
     <section class="main" *ngIf="todos.length > 0">
       <ul class="todo-list" [formGroup]="editTodoControls">
         <li
@@ -40,7 +40,7 @@
     </section>
     <footer class="footer" *ngIf="todos.length > 0">
       <ng-container
-        *ngIf="(remainingTodosCount$ | async) as remainingTodosCount"
+        *ngIf="(query.remainingTodosCount$ | async) as remainingTodosCount"
       >
         <span class="todo-count">
           <strong>{{ remainingTodosCount }}</strong>
@@ -50,7 +50,7 @@
       </ng-container>
       <button
         class="clear-completed"
-        *ngIf="(completedTodosCount$ | async) > 0"
+        *ngIf="(query.completedTodosCount$ | async) > 0"
         (click)="removeCompleted()"
       >
         Clear completed

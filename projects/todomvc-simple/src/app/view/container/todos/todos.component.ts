@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Todo } from '../../../domain/todo';
+import { TodosQuery } from '../../../query/todos.query';
 import { TodosUsecase } from '../../../usecase/todos.usecase';
-import { TodosQuery } from './todos.query';
 
 @Component({
   selector: 'app-todos',
@@ -10,10 +10,6 @@ import { TodosQuery } from './todos.query';
   styleUrls: ['./todos.component.css'],
 })
 export class TodosComponent {
-  todos$ = this.query.todos$;
-  remainingTodosCount$ = this.query.remainingTodosCount$;
-  completedTodosCount$ = this.query.completedTodosCount$;
-
   newTodoControl = this.fb.control('', {
     validators: [Validators.required],
   });
@@ -21,7 +17,7 @@ export class TodosComponent {
   editTodoControls = this.fb.array([]);
 
   constructor(
-    private query: TodosQuery,
+    public query: TodosQuery,
     private todosUsecase: TodosUsecase,
     private fb: FormBuilder,
   ) {}
