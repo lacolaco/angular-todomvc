@@ -15,3 +15,7 @@ export function createTodo({
     editing,
   };
 }
+
+export function isValidTodoTitle(title: string): boolean {
+  return title && title.trim().length > 0;
+}

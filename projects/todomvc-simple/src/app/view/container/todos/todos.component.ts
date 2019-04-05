@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Todo } from '../../../domain/todo';
 import { TodosQuery } from '../../../query/todos.query';
 import { TodosUsecase } from '../../../usecase/todos.usecase';
+import { todoTitleValidator } from '../../validator/todo-title';
 
 @Component({
   selector: 'app-todos',
@@ -10,9 +11,7 @@ import { TodosUsecase } from '../../../usecase/todos.usecase';
   styleUrls: ['./todos.component.css'],
 })
 export class TodosComponent {
-  newTodoControl = this.fb.control('', {
-    validators: [Validators.required],
-  });
+  newTodoControl = this.fb.control('', { validators: [todoTitleValidator] });
 
   editTodoControls = this.fb.array([]);
 
@@ -39,9 +38,7 @@ export class TodosComponent {
     this.todosUsecase.startEditing(index);
     this.editTodoControls.insert(
       index,
-      this.fb.control(todo.title, {
-        validators: [Validators.required],
-      }),
+      this.fb.control(todo.title, { validators: [todoTitleValidator] }),
     );
   }
 
