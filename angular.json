@@ -105,27 +105,101 @@
         }
       }
     },
-    "todomvc-simple-e2e": {
-      "root": "projects/todomvc-simple-e2e/",
+    "todomvc-ngrx": {
+      "root": "projects/todomvc-ngrx/",
+      "sourceRoot": "projects/todomvc-ngrx/src",
       "projectType": "application",
-      "prefix": "",
+      "prefix": "app",
+      "schematics": {},
       "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "protractorConfig": "projects/todomvc-simple-e2e/protractor.conf.js",
-            "devServerTarget": "todomvc-simple:serve"
+            "outputPath": "dist/todomvc-ngrx",
+            "index": "projects/todomvc-ngrx/src/index.html",
+            "main": "projects/todomvc-ngrx/src/main.ts",
+            "polyfills": "projects/todomvc-ngrx/src/polyfills.ts",
+            "tsConfig": "projects/todomvc-ngrx/tsconfig.app.json",
+            "assets": [
+              "projects/todomvc-ngrx/src/favicon.ico",
+              "projects/todomvc-ngrx/src/assets"
+            ],
+            "styles": [
+              "node_modules/todomvc-common/base.css",
+              "node_modules/todomvc-app-css/index.css",
+              "projects/todomvc-ngrx/src/styles.css"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
           },
           "configurations": {
             "production": {
-              "devServerTarget": "todomvc-simple:serve:production"
+              "fileReplacements": [
+                {
+                  "replace": "projects/todomvc-ngrx/src/environments/environment.ts",
+                  "with": "projects/todomvc-ngrx/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
             }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "todomvc-ngrx:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "todomvc-ngrx:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "todomvc-ngrx:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/todomvc-ngrx/src/test.ts",
+            "polyfills": "projects/todomvc-ngrx/src/polyfills.ts",
+            "tsConfig": "projects/todomvc-ngrx/tsconfig.spec.json",
+            "karmaConfig": "projects/todomvc-ngrx/karma.conf.js",
+            "styles": [
+              "projects/todomvc-ngrx/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/todomvc-ngrx/src/favicon.ico",
+              "projects/todomvc-ngrx/src/assets"
+            ]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "projects/todomvc-simple-e2e/tsconfig.e2e.json",
+            "tsConfig": [
+              "projects/todomvc-ngrx/tsconfig.app.json",
+              "projects/todomvc-ngrx/tsconfig.spec.json"
+            ],
             "exclude": [
               "**/node_modules/**"
             ]

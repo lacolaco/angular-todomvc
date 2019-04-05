@@ -1,0 +1,64 @@
+import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Todo } from '../../../domain/todo';
+import { TodosQuery } from '../../../query/todos.query';
+import { TodosUsecase } from '../../../usecase/todos.usecase';
+import { todoTitleValidator } from '../../validator/todo-title';
+
+@Component({
+  selector: 'app-todos',
+  templateUrl: './todos.component.html',
+  styleUrls: ['./todos.component.css'],
+})
+export class TodosComponent {
+  newTodoControl = this.fb.control('', { validators: [todoTitleValidator] });
+
+  editTodoControls = this.fb.array([]);
+
+  constructor(
+    public query: TodosQuery,
+    private todosUsecase: TodosUsecase,
+    private fb: FormBuilder,
+  ) {}
+
+  addTodo() {
+    if (this.newTodoControl.invalid) {
+      return;
+    }
+    const newTodoTitle = this.newTodoControl.value;
+    this.todosUsecase.addTodo(newTodoTitle);
+    this.newTodoControl.reset();
+  }
+
+  toggleCompletion(index: number) {
+    this.todosUsecase.toggleCompletion(index);
+  }
+
+  editTodo(index: number, todo: Todo) {
+    this.editTodoControls.insert(
+      index,
+      this.fb.control(todo.title, { validators: [todoTitleValidator] }),
+    );
+    this.todosUsecase.startEditing(index);
+  }
+
+  removeTodo(index: number) {
+    this.todosUsecase.removeTodo(index);
+  }
+
+  stopEditing(index: number) {
+    const control = this.editTodoControls.at(index);
+    if (control.invalid) {
+      return;
+    }
+    this.todosUsecase.finishEditing(index, control.value);
+  }
+
+  cancelEditingTodo(index: number) {
+    this.todosUsecase.cancelEditing(index);
+  }
+
+  removeCompleted() {
+    this.todosUsecase.removeCompleted();
+  }
+}
