@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@lacolaco/reactive-store';
-import { initialValue, TodoState } from './todo.state';
+import { initialValue, TodoState } from './state';
 
 @Injectable({ providedIn: 'root' })
 export class TodoStore extends Store<TodoState> {

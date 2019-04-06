@@ -1,6 +1,6 @@
 import produce from 'immer';
-import { Todo } from '../domain/todo';
-import { TodoState } from './todo.state';
+import { Todo } from '../../domain/todo';
+import { TodoState } from './state';
 
 export const add = (todo: Todo) =>
   produce((state: TodoState) => {

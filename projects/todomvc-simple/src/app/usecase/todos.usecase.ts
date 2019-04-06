@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { createTodo } from '../domain/todo';
-import * as TodoActions from '../store/todo.actions';
-import { TodoStore } from '../store/todo.store';
+import * as TodoActions from '../store/todo/actions';
+import { TodoStore } from '../store/todo/store';
 
 @Injectable({ providedIn: 'root' })
 export class TodosUsecase {

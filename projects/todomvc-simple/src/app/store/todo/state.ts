@@ -1,4 +1,4 @@
-import { Todo } from '../domain/todo';
+import { Todo } from '../../domain/todo';
 
 export type TodoState = {
   todos: {
