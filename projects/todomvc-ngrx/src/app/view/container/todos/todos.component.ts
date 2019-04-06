@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { Todo } from '../../../domain/todo';
 import { TodosQuery } from '../../../query/todos.query';
 import { TodosUsecase } from '../../../usecase/todos.usecase';
-import { todoTitleValidator } from '../../validator/todo-title';
+import { todoTitleValidator } from '../../form/validator/todo-title';
 
 @Component({
   selector: 'app-todos',
