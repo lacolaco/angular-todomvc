@@ -15,7 +15,7 @@ export const remove = (index: number) =>
 export const removeCompleted = () =>
   produce((state: TodoState) => {
     state.todos.items = state.todos.items.filter(
-      todo => todo.completed === true,
+      todo => todo.completed === false,
     );
   });
 

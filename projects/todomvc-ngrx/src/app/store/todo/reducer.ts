@@ -14,7 +14,7 @@ export const reducer = produce(
         return;
       }
       case TodoActions.removeCompleted.type: {
-        state.items = state.items.filter(todo => todo.completed === true);
+        state.items = state.items.filter(todo => todo.completed === false);
         return;
       }
       case TodoActions.toggleCompletion.type: {
