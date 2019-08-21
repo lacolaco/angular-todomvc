@@ -1,8 +1,8 @@
-export type Todo = {
+export interface Todo {
   completed: boolean;
   editing: boolean;
   title: string;
-};
+}
 
 export function createTodo({
   title,
