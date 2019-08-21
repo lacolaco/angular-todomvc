@@ -20,7 +20,7 @@ const todoReducer = createReducer(
   on(
     TodoActions.removeCompleted,
     produce(state => {
-      state.items = state.items.filter(todo => todo.completed === true);
+      state.items = state.items.filter(todo => todo.completed === false);
     }),
   ),
   on(
